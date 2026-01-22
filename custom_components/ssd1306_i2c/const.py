@@ -1,0 +1,19 @@
+DOMAIN = "ssd1306_i2c"
+CONF_MODEL = "model"
+CONF_ADDRESS = "address"
+CONF_RESET_PIN = "reset_pin"
+CONF_I2C_BUS = "i2c_bus"
+CONF_ROTATE = "rotate"
+DEFAULT_ADDRESS = 0x3C
+DEFAULT_I2C_BUS = 1
+DEFAULT_MODEL = "SSD1306 128x64"
+DEFAULT_ROTATE = 0
+MODELS = {
+    "SSD1306 128x64": (128, 64),
+    "SSD1306 128x32": (128, 32),
+}
+SERVICE_PRINT_TEXT = "print_text"
+ATTR_X = "x"
+ATTR_Y = "y"
+ATTR_TEXT = "text"
+ATTR_CLEAR = "clear"

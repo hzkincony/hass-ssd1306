@@ -1,0 +1,37 @@
+print_text:
+  name: Print text
+  description: Print ASCII text on the SSD1306 display.
+  fields:
+    x:
+      name: X
+      description: X coordinate in pixels.
+      required: true
+      selector:
+        number:
+          min: 0
+          max: 127
+          mode: box
+          step: 1
+    y:
+      name: Y
+      description: Y coordinate in pixels.
+      required: true
+      selector:
+        number:
+          min: 0
+          max: 63
+          mode: box
+          step: 1
+    text:
+      name: Text
+      description: ASCII text to render.
+      required: true
+      selector:
+        text:
+    clear:
+      name: Clear
+      description: Clear display before printing text.
+      required: false
+      default: true
+      selector:
+        boolean:
