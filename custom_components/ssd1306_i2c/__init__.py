@@ -15,7 +15,6 @@ from .const import (
     CONF_ADDRESS,
     CONF_I2C_BUS,
     CONF_MODEL,
-    CONF_RESET_PIN,
     CONF_ROTATE,
     DEFAULT_ADDRESS,
     DEFAULT_I2C_BUS,
@@ -39,7 +38,6 @@ CONFIG_SCHEMA = vol.Schema(
                     ),
                     vol.Optional(CONF_ADDRESS, default=DEFAULT_ADDRESS): cv.positive_int,
                     vol.Optional(CONF_I2C_BUS, default=DEFAULT_I2C_BUS): cv.positive_int,
-                    vol.Optional(CONF_RESET_PIN): cv.positive_int,
                     vol.Optional(CONF_ROTATE, default=DEFAULT_ROTATE): vol.In([0, 1, 2, 3]),
                 }
             ],
@@ -66,14 +64,10 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
 
     display_entries = []
     for display_config in display_configs:
-        reset_pin = display_config.get(CONF_RESET_PIN)
-        if reset_pin is not None:
-            _LOGGER.warning("reset_pin is configured but not supported; ignoring")
         display = Ssd1306Display(
             i2c_bus=display_config[CONF_I2C_BUS],
             address=display_config[CONF_ADDRESS],
             model=display_config[CONF_MODEL],
-            reset_pin=reset_pin,
             rotate=display_config[CONF_ROTATE],
         )
         display_entries.append(display)

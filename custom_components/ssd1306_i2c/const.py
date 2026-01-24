@@ -1,7 +1,6 @@
 DOMAIN = "ssd1306_i2c"
 CONF_MODEL = "model"
 CONF_ADDRESS = "address"
-CONF_RESET_PIN = "reset_pin"
 CONF_I2C_BUS = "i2c_bus"
 CONF_ROTATE = "rotate"
 DEFAULT_ADDRESS = 0x3C

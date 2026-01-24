@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional
 
 from luma.core.interface.serial import i2c
 from luma.core.render import canvas
@@ -16,7 +15,6 @@ class Ssd1306Display:
     i2c_bus: int
     address: int
     model: str
-    reset_pin: Optional[int]
     rotate: int
 
     def _create_device(self):
