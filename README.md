@@ -62,7 +62,7 @@ Prints ASCII text to the configured display(s).
 | `y` | integer | Yes | Y coordinate in pixels (0-63). |
 | `text` | string | Yes | Text to render. |
 | `clear` | boolean | No | Clear the display before printing. Default: `true`. |
-| `font_size` | integer | No | Font size in pixels (8-64). Default: `10`. |
+| `font_size` | integer | No | Font size in pixels (8-64). Default: `24`. |
 | `display_name` | string | No | Target display name (e.g., "main" or "1_60"). If not specified, prints to all displays. |
 
 #### Service Call Examples
@@ -75,7 +75,7 @@ data:
   y: 0
   text: "Hello World"
   clear: true
-  font_size: 16
+  font_size: 24
   display_name: "main"
 ```
 
@@ -97,7 +97,7 @@ data:
   y: 0
   text: "Hello World"
   clear: true
-  font_size: 16
+  font_size: 24
 ```
 
 ## Limitations

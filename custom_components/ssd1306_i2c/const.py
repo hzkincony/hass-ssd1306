@@ -22,4 +22,4 @@ ATTR_TEXT = "text"
 ATTR_CLEAR = "clear"
 ATTR_FONT_SIZE = "font_size"
 ATTR_DISPLAY_NAME = "display_name"
-DEFAULT_FONT_SIZE = 10
+DEFAULT_FONT_SIZE = 24
