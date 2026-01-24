@@ -19,3 +19,5 @@ ATTR_X = "x"
 ATTR_Y = "y"
 ATTR_TEXT = "text"
 ATTR_CLEAR = "clear"
+ATTR_FONT_SIZE = "font_size"
+DEFAULT_FONT_SIZE = 10

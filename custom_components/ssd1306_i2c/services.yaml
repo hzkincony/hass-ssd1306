@@ -35,3 +35,14 @@ print_text:
       default: true
       selector:
         boolean:
+    font_size:
+      name: Font size
+      description: Font size in pixels.
+      required: false
+      default: 10
+      selector:
+        number:
+          min: 8
+          max: 64
+          mode: box
+          step: 1

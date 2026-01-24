@@ -6,7 +6,7 @@ A minimal Home Assistant custom integration for SSD1306 I2C displays. This integ
 
 This integration requires the following Python dependencies:
 - `luma.oled>=3.13.0`
-- `Pillow>=9.0.0`
+- `Pillow>=10.1.0`
 - `smbus2>=0.4.3`
 
 ## Installation
@@ -47,6 +47,7 @@ Prints ASCII text to the configured display(s).
 | `y` | integer | Yes | Y coordinate in pixels (0-63). |
 | `text` | string | Yes | Text to render. |
 | `clear` | boolean | No | Clear the display before printing. Default: `true`. |
+| `font_size` | integer | No | Font size in pixels (8-64). Default: `10`. |
 
 #### Service Call Example
 
@@ -57,6 +58,7 @@ data:
   y: 0
   text: "Hello World"
   clear: true
+  font_size: 16
 ```
 
 ## Limitations

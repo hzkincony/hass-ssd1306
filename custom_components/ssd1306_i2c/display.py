@@ -22,11 +22,14 @@ class Ssd1306Display:
         serial = i2c(port=self.i2c_bus, address=self.address)
         return ssd1306(serial, width=width, height=height, rotate=self.rotate)
 
-    def print_text(self, x: int, y: int, text: str, clear: bool = True) -> None:
+    def print_text(self, x: int, y: int, text: str, clear: bool = True, font_size: int = 10) -> None:
         device = self._create_device()
         if clear:
             device.clear()
-        font = ImageFont.load_default()
+        try:
+            font = ImageFont.load_default(size=font_size)
+        except TypeError:
+            font = ImageFont.load_default()
         safe_text = text.encode("ascii", errors="ignore").decode("ascii")
         with canvas(device) as draw:
             draw.text((x, y), safe_text, font=font, fill=255)

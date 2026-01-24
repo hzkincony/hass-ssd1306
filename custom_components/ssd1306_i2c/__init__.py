@@ -9,6 +9,7 @@ from homeassistant.helpers.typing import ConfigType
 
 from .const import (
     ATTR_CLEAR,
+    ATTR_FONT_SIZE,
     ATTR_TEXT,
     ATTR_X,
     ATTR_Y,
@@ -17,6 +18,7 @@ from .const import (
     CONF_MODEL,
     CONF_ROTATE,
     DEFAULT_ADDRESS,
+    DEFAULT_FONT_SIZE,
     DEFAULT_I2C_BUS,
     DEFAULT_MODEL,
     DEFAULT_ROTATE,
@@ -52,6 +54,7 @@ SERVICE_SCHEMA = vol.Schema(
         vol.Required(ATTR_Y): cv.positive_int,
         vol.Required(ATTR_TEXT): cv.string,
         vol.Optional(ATTR_CLEAR, default=True): cv.boolean,
+        vol.Optional(ATTR_FONT_SIZE, default=DEFAULT_FONT_SIZE): cv.positive_int,
     }
 )
 
@@ -85,8 +88,9 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
         y = call.data[ATTR_Y]
         text = call.data[ATTR_TEXT]
         clear = call.data[ATTR_CLEAR]
+        font_size = call.data[ATTR_FONT_SIZE]
         for display in hass.data[DOMAIN]["displays"]:
-            await hass.async_add_executor_job(display.print_text, x, y, text, clear)
+            await hass.async_add_executor_job(display.print_text, x, y, text, clear, font_size)
 
     hass.services.async_register(
         DOMAIN,
