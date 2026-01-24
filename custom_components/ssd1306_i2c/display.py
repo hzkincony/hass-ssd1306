@@ -32,4 +32,4 @@ class Ssd1306Display:
             font = ImageFont.load_default()
         safe_text = text.encode("ascii", errors="ignore").decode("ascii")
         with canvas(device) as draw:
-            draw.text((x, y), safe_text, font=font, fill=255)
+            draw.text((x, y), safe_text, font=font, fill=255, anchor="lt")
