@@ -20,7 +20,7 @@ Add the integration to your `configuration.yaml`. This integration supports mult
 
 ```yaml
 ssd1306_i2c:
-  - model: "SSD1306 128x64"
+  - model: "128x64"
     address: 0x3C
     i2c_bus: 1
     rotate: 0
@@ -30,11 +30,10 @@ ssd1306_i2c:
 
 | Variable | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `model` | string | `SSD1306 128x64` | Display model. Supported: `SSD1306 128x64`, `SSD1306 128x32`. |
+| `model` | string | `128x64` | Display model. Supported: `128x64`, `128x32`, `96x16`, `64x48`, `64x32`. |
 | `address` | integer | `0x3C` | I2C address of the display (e.g., `0x3C` or `60`). |
 | `i2c_bus` | integer | `1` | I2C bus number. |
 | `rotate` | integer | `0` | Rotation of the display. Supported values: `0`, `1`, `2`, `3`. |
-| `reset_pin` | integer | (Optional) | Ignored. Currently not supported by the integration. |
 
 ## Services
 
@@ -63,5 +62,4 @@ data:
 ## Limitations
 
 - ASCII only: non-ASCII characters are stripped before rendering.
-- `reset_pin` is accepted but ignored by the integration.
 - YAML-only configuration (no config flow).
