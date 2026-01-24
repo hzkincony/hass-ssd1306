@@ -34,7 +34,7 @@ CONFIG_SCHEMA = vol.Schema(
             [
                 {
                     vol.Optional(CONF_MODEL, default=DEFAULT_MODEL): vol.In(
-                        ["SSD1306 128x64", "SSD1306 128x32"]
+                        ["128x64", "128x32", "96x16", "64x48", "64x32"]
                     ),
                     vol.Optional(CONF_ADDRESS, default=DEFAULT_ADDRESS): cv.positive_int,
                     vol.Optional(CONF_I2C_BUS, default=DEFAULT_I2C_BUS): cv.positive_int,

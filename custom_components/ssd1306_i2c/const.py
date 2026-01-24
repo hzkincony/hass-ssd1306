@@ -5,11 +5,14 @@ CONF_I2C_BUS = "i2c_bus"
 CONF_ROTATE = "rotate"
 DEFAULT_ADDRESS = 0x3C
 DEFAULT_I2C_BUS = 1
-DEFAULT_MODEL = "SSD1306 128x64"
+DEFAULT_MODEL = "128x64"
 DEFAULT_ROTATE = 0
 MODELS = {
-    "SSD1306 128x64": (128, 64),
-    "SSD1306 128x32": (128, 32),
+    "128x64": (128, 64),
+    "128x32": (128, 32),
+    "96x16": (96, 16),
+    "64x48": (64, 48),
+    "64x32": (64, 32),
 }
 SERVICE_PRINT_TEXT = "print_text"
 ATTR_X = "x"

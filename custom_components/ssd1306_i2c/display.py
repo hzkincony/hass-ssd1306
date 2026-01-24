@@ -18,7 +18,7 @@ class Ssd1306Display:
     rotate: int
 
     def _create_device(self):
-        width, height = MODELS.get(self.model, MODELS["SSD1306 128x64"])
+        width, height = MODELS.get(self.model, MODELS["128x64"])
         serial = i2c(port=self.i2c_bus, address=self.address)
         return ssd1306(serial, width=width, height=height, rotate=self.rotate)
 
