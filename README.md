@@ -28,8 +28,14 @@ Add the integration to your `configuration.yaml`. This integration supports mult
 
 ```yaml
 ssd1306_i2c:
-  - model: "128x64"
+  - name: "main"
+    model: "128x64"
     address: 0x3C
+    i2c_bus: 1
+    rotate: 0
+  - name: "secondary"
+    model: "128x32"
+    address: 0x3D
     i2c_bus: 1
     rotate: 0
 ```
@@ -38,6 +44,7 @@ ssd1306_i2c:
 
 | Variable | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
+| `name` | string | (optional) | Display identifier. If not specified, uses `{i2c_bus}_{address}` (e.g., "1_60"). |
 | `model` | string | `128x64` | Display model. Supported: `128x64`, `128x32`, `96x16`, `64x48`, `64x32`. |
 | `address` | integer | `0x3C` | I2C address of the display (e.g., `0x3C` or `60`). |
 | `i2c_bus` | integer | `1` | I2C bus number. |
@@ -56,9 +63,33 @@ Prints ASCII text to the configured display(s).
 | `text` | string | Yes | Text to render. |
 | `clear` | boolean | No | Clear the display before printing. Default: `true`. |
 | `font_size` | integer | No | Font size in pixels (8-64). Default: `10`. |
+| `display_name` | string | No | Target display name (e.g., "main" or "1_60"). If not specified, prints to all displays. |
 
-#### Service Call Example
+#### Service Call Examples
 
+Print to a specific display by name:
+```yaml
+service: ssd1306_i2c.print_text
+data:
+  x: 0
+  y: 0
+  text: "Hello World"
+  clear: true
+  font_size: 16
+  display_name: "main"
+```
+
+Print to a specific display by auto-generated name:
+```yaml
+service: ssd1306_i2c.print_text
+data:
+  x: 0
+  y: 0
+  text: "Hello World"
+  display_name: "1_60"  # i2c_bus 1, address 0x3C (60 in decimal)
+```
+
+Print to all displays (omit `display_name` field):
 ```yaml
 service: ssd1306_i2c.print_text
 data:

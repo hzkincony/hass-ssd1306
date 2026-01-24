@@ -9,6 +9,7 @@ from homeassistant.helpers.typing import ConfigType
 
 from .const import (
     ATTR_CLEAR,
+    ATTR_DISPLAY_NAME,
     ATTR_FONT_SIZE,
     ATTR_TEXT,
     ATTR_X,
@@ -16,6 +17,7 @@ from .const import (
     CONF_ADDRESS,
     CONF_I2C_BUS,
     CONF_MODEL,
+    CONF_NAME,
     CONF_ROTATE,
     DEFAULT_ADDRESS,
     DEFAULT_FONT_SIZE,
@@ -35,6 +37,7 @@ CONFIG_SCHEMA = vol.Schema(
             cv.ensure_list,
             [
                 {
+                    vol.Optional(CONF_NAME): cv.string,
                     vol.Optional(CONF_MODEL, default=DEFAULT_MODEL): vol.In(
                         ["128x64", "128x32", "96x16", "64x48", "64x32"]
                     ),
@@ -55,6 +58,7 @@ SERVICE_SCHEMA = vol.Schema(
         vol.Required(ATTR_TEXT): cv.string,
         vol.Optional(ATTR_CLEAR, default=True): cv.boolean,
         vol.Optional(ATTR_FONT_SIZE, default=DEFAULT_FONT_SIZE): cv.positive_int,
+        vol.Optional(ATTR_DISPLAY_NAME): cv.string,
     }
 )
 
@@ -65,15 +69,19 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
 
     display_configs = config.get(DOMAIN, [])
 
-    display_entries = []
-    for display_config in display_configs:
+    display_entries = {}
+    for idx, display_config in enumerate(display_configs):
         display = Ssd1306Display(
             i2c_bus=display_config[CONF_I2C_BUS],
             address=display_config[CONF_ADDRESS],
             model=display_config[CONF_MODEL],
             rotate=display_config[CONF_ROTATE],
         )
-        display_entries.append(display)
+        name = display_config.get(CONF_NAME)
+        if name:
+            display_entries[name] = display
+        else:
+            display_entries[f"{display_config[CONF_I2C_BUS]}_{display_config[CONF_ADDRESS]}"] = display
 
     if not display_entries:
         _LOGGER.error("No '%s' displays configured", DOMAIN)
@@ -89,7 +97,19 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
         text = call.data[ATTR_TEXT]
         clear = call.data[ATTR_CLEAR]
         font_size = call.data[ATTR_FONT_SIZE]
-        for display in hass.data[DOMAIN]["displays"]:
+        display_name = call.data.get(ATTR_DISPLAY_NAME)
+        
+        displays = hass.data[DOMAIN]["displays"]
+        
+        if display_name:
+            if display_name not in displays:
+                _LOGGER.error("Display '%s' not found. Available displays: %s", display_name, list(displays.keys()))
+                return
+            target_displays = {display_name: displays[display_name]}
+        else:
+            target_displays = displays
+        
+        for name, display in target_displays.items():
             await hass.async_add_executor_job(display.print_text, x, y, text, clear, font_size)
 
     hass.services.async_register(

@@ -46,3 +46,9 @@ print_text:
           max: 64
           mode: box
           step: 1
+    display_name:
+      name: Display name
+      description: Target display name (e.g., "main" or "1_60"). If not specified, prints to all displays.
+      required: false
+      selector:
+        text:
