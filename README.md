@@ -2,17 +2,25 @@
 
 A minimal Home Assistant custom integration for SSD1306 I2C displays. This integration allows you to display ASCII text on OLED screens connected via I2C.
 
-## Prerequisites
-
-This integration requires the following Python dependencies:
-- `luma.oled>=3.13.0`
-- `Pillow>=10.1.0`
-- `smbus2>=0.4.3`
-
 ## Installation
 
-1. Copy the `custom_components/ssd1306_i2c` directory into your Home Assistant `custom_components` folder.
-2. Restart Home Assistant.
+### HACS (Recommended)
+
+1. Open HACS in your Home Assistant instance
+2. Click on "Integrations"
+3. Click the three dots in the top right corner
+4. Select "Custom repositories"
+5. Add this repository URL: `https://github.com/kincony/hass-ssd1306`
+6. Select category: "Integration"
+7. Click "Add"
+8. Find "SSD1306 I2C Display" in HACS and click "Download"
+9. Restart Home Assistant
+
+### Manual Installation
+
+1. Clone or download this repository
+2. Copy the `custom_components/ssd1306_i2c` directory into your Home Assistant `custom_components` folder
+3. Restart Home Assistant
 
 ## Configuration
 
