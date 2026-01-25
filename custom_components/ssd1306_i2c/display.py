@@ -19,32 +19,40 @@ class Ssd1306Display:
     address: int
     model: str
     rotate: int
-    _last_image: Image.Image | None = field(default=None, init=False, repr=False)
+    _device: ssd1306 | None = field(default=None, init=False, repr=False)
+    _image: Image.Image | None = field(default=None, init=False, repr=False)
+    _draw: ImageDraw.ImageDraw | None = field(default=None, init=False, repr=False)
 
-    def _create_device(self):
-        width, height = MODELS.get(self.model, MODELS["128x64"])
-        serial = i2c(port=self.i2c_bus, address=self.address)
-        return ssd1306(serial, width=width, height=height, rotate=self.rotate)
+    def _ensure_device(self) -> ssd1306:
+        if self._device is None:
+            width, height = MODELS.get(self.model, MODELS["128x64"])
+            serial = i2c(port=self.i2c_bus, address=self.address)
+            self._device = ssd1306(serial, width=width, height=height, rotate=self.rotate)
+        return self._device
+
+    def _ensure_buffer(self, width: int, height: int) -> None:
+        if self._image is None or self._image.size != (width, height):
+            self._image = Image.new("1", (width, height), 0)
+            self._draw = ImageDraw.Draw(self._image)
 
     def print_text(self, x: int, y: int, text: str, clear: bool = True, font_size: int = 10) -> None:
-        device = self._create_device()
+        device = self._ensure_device()
         if clear:
             device.clear()
 
         width, height = MODELS.get(self.model, MODELS["128x64"])
-        if clear or self._last_image is None or self._last_image.size != (width, height):
-            image = Image.new("1", (width, height), 0)
-        else:
-            image = self._last_image.copy()
-        draw = ImageDraw.Draw(image)
+        self._ensure_buffer(width, height)
+        if self._image is None or self._draw is None:
+            return
+        if clear:
+            self._draw.rectangle((0, 0, width, height), fill=0)
         safe_text = text.encode("ascii", errors="ignore").decode("ascii")
 
         try:
             font = ImageFont.load_default(size=font_size)
         except TypeError:
             font = ImageFont.load_default()
-        draw.text((x, y), safe_text, fill=1, font=font)
+        self._draw.text((x, y), safe_text, fill=1, font=font)
 
         # Display the image
-        device.display(image)
-        self._last_image = image
+        device.display(self._image)
