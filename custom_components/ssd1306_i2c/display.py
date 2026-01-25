@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import logging
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from luma.core.interface.serial import i2c
 from luma.core.render import canvas
@@ -19,6 +19,7 @@ class Ssd1306Display:
     address: int
     model: str
     rotate: int
+    _last_image: Image.Image | None = field(default=None, init=False, repr=False)
 
     def _create_device(self):
         width, height = MODELS.get(self.model, MODELS["128x64"])
@@ -31,7 +32,10 @@ class Ssd1306Display:
             device.clear()
 
         width, height = MODELS.get(self.model, MODELS["128x64"])
-        image = Image.new("1", (width, height), 0)
+        if clear or self._last_image is None or self._last_image.size != (width, height):
+            image = Image.new("1", (width, height), 0)
+        else:
+            image = self._last_image.copy()
         draw = ImageDraw.Draw(image)
         safe_text = text.encode("ascii", errors="ignore").decode("ascii")
 
@@ -43,3 +47,4 @@ class Ssd1306Display:
 
         # Display the image
         device.display(image)
+        self._last_image = image
