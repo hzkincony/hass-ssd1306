@@ -4,7 +4,6 @@ import logging
 from dataclasses import dataclass, field
 
 from luma.core.interface.serial import i2c
-from luma.core.render import canvas
 from luma.oled.device import ssd1306
 from PIL import Image, ImageDraw, ImageFont
 
@@ -40,7 +39,7 @@ class Ssd1306Display:
         if clear:
             device.clear()
 
-        width, height = MODELS.get(self.model, MODELS["128x64"])
+        width, height = device.size
         self._ensure_buffer(width, height)
         if self._image is None or self._draw is None:
             return
