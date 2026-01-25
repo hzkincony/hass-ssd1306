@@ -6,10 +6,9 @@ from dataclasses import dataclass
 from luma.core.interface.serial import i2c
 from luma.core.render import canvas
 from luma.oled.device import ssd1306
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 
 from .const import MODELS
-from .font8x8 import FONT8X8_BASIC_TR
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -31,28 +30,16 @@ class Ssd1306Display:
         if clear:
             device.clear()
 
-        # Render directly to 1-bit for crisp bitmap output
         width, height = MODELS.get(self.model, MODELS["128x64"])
         image = Image.new("1", (width, height), 0)
         draw = ImageDraw.Draw(image)
         safe_text = text.encode("ascii", errors="ignore").decode("ascii")
 
-        char_width = 8
-        char_height = 8
-        cx = x
-        for ch in safe_text:
-            code = ord(ch)
-            if 0 <= code < len(FONT8X8_BASIC_TR):
-                glyph = FONT8X8_BASIC_TR[code]
-            else:
-                glyph = FONT8X8_BASIC_TR[0]
-
-            for col, col_bits in enumerate(glyph):
-                for row in range(char_height):
-                    if col_bits & (1 << row):
-                        draw.point((cx + col, y + row), fill=1)
-
-            cx += char_width
+        try:
+            font = ImageFont.load_default(size=font_size)
+        except TypeError:
+            font = ImageFont.load_default()
+        draw.text((x, y), safe_text, fill=1, font=font)
 
         # Display the image
         device.display(image)
