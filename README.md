@@ -114,5 +114,6 @@ data:
 
 ## Screenshots
 
-![SSD1306 display showing sample text](display.jpg)
-![Home Assistant service UI for print_text](ha-service.png)
+| SSD1306 display | Home Assistant service UI |
+| --- | --- |
+| <img src="display.jpg" alt="SSD1306 display showing sample text" width="360" /> | <img src="ha-service.png" alt="Home Assistant service UI for print_text" width="360" /> |
