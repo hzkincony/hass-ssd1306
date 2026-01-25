@@ -48,7 +48,14 @@ ssd1306_i2c:
 | `model` | string | `128x64` | Display model. Supported: `128x64`, `128x32`, `96x16`, `64x48`, `64x32`. |
 | `address` | integer | `0x3C` | I2C address of the display (e.g., `0x3C` or `60`). |
 | `i2c_bus` | integer | `1` | I2C bus number. |
-| `rotate` | integer | `0` | Rotation of the display. Supported values: `0`, `1`, `2`, `3`. |
+| `rotate` | integer | `0` | Rotation of the display. Supported values: `0`, `1`, `2`, `3` (90 degree steps clockwise). |
+
+#### Rotation Values
+
+- `0`: No rotation (0 degrees)
+- `1`: 90 degrees clockwise
+- `2`: 180 degrees
+- `3`: 270 degrees clockwise
 
 ## Services
 
