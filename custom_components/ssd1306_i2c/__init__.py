@@ -110,7 +110,14 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
             target_displays = displays
         
         for name, display in target_displays.items():
-            await hass.async_add_executor_job(display.print_text, x, y, text, clear, font_size)
+            await hass.async_add_executor_job(
+                display.print_text,
+                x,
+                y,
+                text,
+                clear,
+                font_size,
+            )
 
     hass.services.async_register(
         DOMAIN,

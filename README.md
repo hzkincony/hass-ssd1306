@@ -107,6 +107,17 @@ data:
   font_size: 24
 ```
 
+Print multiple lines (use `\n` in the text):
+```yaml
+service: ssd1306_i2c.print_text
+data:
+  x: 0
+  y: 0
+  text: "Line 1\nLine 2\nLine 3"
+  clear: true
+  font_size: 12
+```
+
 ## Limitations
 
 - ASCII only: non-ASCII characters are stripped before rendering.

@@ -34,7 +34,14 @@ class Ssd1306Display:
             self._image = Image.new("1", (width, height), 0)
             self._draw = ImageDraw.Draw(self._image)
 
-    def print_text(self, x: int, y: int, text: str, clear: bool = True, font_size: int = 10) -> None:
+    def print_text(
+        self,
+        x: int,
+        y: int,
+        text: str,
+        clear: bool = True,
+        font_size: int = 10,
+    ) -> None:
         device = self._ensure_device()
         if clear:
             device.clear()
@@ -51,7 +58,19 @@ class Ssd1306Display:
             font = ImageFont.load_default(size=font_size)
         except TypeError:
             font = ImageFont.load_default()
-        self._draw.text((x, y), safe_text, fill=1, font=font)
+        try:
+            ascent, descent = font.getmetrics()
+            line_height = ascent + descent
+        except AttributeError:
+            bbox = font.getbbox("Ag")
+            line_height = bbox[3] - bbox[1]
+        if line_height <= 0:
+            line_height = font_size
+
+        current_y = y
+        for line in safe_text.split("\\n"):
+            self._draw.text((x, current_y), line, fill=1, font=font)
+            current_y += line_height
 
         # Display the image
         device.display(self._image)
