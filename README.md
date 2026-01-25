@@ -2,11 +2,6 @@
 
 A minimal Home Assistant custom integration for SSD1306 I2C displays. This integration allows you to display ASCII text on OLED screens connected via I2C.
 
-## Screenshots
-
-![SSD1306 display showing sample text](display.jpg)
-![Home Assistant service UI for print_text](ha-service.png)
-
 ## Installation
 
 ### HACS (Recommended)
@@ -116,3 +111,8 @@ data:
 
 - ASCII only: non-ASCII characters are stripped before rendering.
 - YAML-only configuration (no config flow).
+
+## Screenshots
+
+![SSD1306 display showing sample text](display.jpg)
+![Home Assistant service UI for print_text](ha-service.png)
