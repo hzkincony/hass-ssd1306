@@ -118,7 +118,7 @@ data:
   font_size: 12
 ```
 
-## Automation Example (SSD1306 Display)
+## Automation Example
 
 Example automation to show A1–A4 values on SSD1306 every 5 seconds:
 
