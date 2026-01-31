@@ -67,7 +67,7 @@ Prints ASCII text to the configured display(s).
 | :--- | :--- | :--- | :--- |
 | `x` | integer | Yes | X coordinate in pixels (0-127). |
 | `y` | integer | Yes | Y coordinate in pixels (0-63). |
-| `text` | string | Yes | Text to render. |
+| `text` | string | Yes | Text to render. Supports multiple lines via `\n`. |
 | `clear` | boolean | No | Clear the display before printing. Default: `true`. |
 | `font_size` | integer | No | Font size in pixels (8-64). Default: `24`. |
 | `display_name` | string | No | Target display name (e.g., "main" or "1_60"). If not specified, prints to all displays. |
