@@ -10,7 +10,7 @@ A minimal Home Assistant custom integration for SSD1306 I2C displays. This integ
 2. Click on "Integrations"
 3. Click the three dots in the top right corner
 4. Select "Custom repositories"
-5. Add this repository URL: `https://github.com/kincony/hass-ssd1306`
+5. Add this repository URL: `https://github.com/hzkincony/hass-ssd1306`
 6. Select category: "Integration"
 7. Click "Add"
 8. Find "SSD1306 I2C Display" in HACS and click "Download"
