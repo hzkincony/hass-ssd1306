@@ -122,6 +122,8 @@ data:
 
 Example automation to show A1–A4 values on SSD1306 every 5 seconds:
 
+<img src="automation-example.jpg" alt="SSD1306 showing A1-A4 values" width="360" />
+
 ```yaml
 automation:
   - id: ads1115_ssd1306_display
